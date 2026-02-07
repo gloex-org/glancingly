@@ -3,279 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glancingly.com | Premium Domains Marketplace</title>
+    <title>Glancingly.com | High-Value Domain Assets</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         :root {
-            --glance-brand: #4f46e5;
-            --glance-header: #1e1b4b;
-            --glance-accent: #f59e0b;
-            --glance-bg: #fdfeff;
-            --glance-card: #ffffff;
-            --glance-footer: #0f172a;
+            --brand: #4f46e5;
+            --brand-dark: #1e1b4b;
+            --accent: #fbbf24;
+            --success: #22c55e;
+            --text-main: #0f172a;
+            --glass: rgba(255, 255, 255, 0.98);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--glance-bg); color: #334155; line-height: 1.6; }
+        body { background-color: #f8fafc; color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
 
-        /* --- Header: Fixed & Brand Colored --- */
+        /* --- NAVIGATION --- */
         header {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--glance-header);
+            top: 0; width: 100%;
+            background: var(--brand-dark);
             padding: 1rem 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.15);
         }
 
-        .logo { font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
-        .logo span { color: var(--glance-accent); }
+        .logo { font-size: 1.6rem; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: var(--accent); }
 
-        .nav-links { display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { color: #e2e8f0; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--glance-accent); }
-        .cta-btn-head { background: var(--glance-brand); color: white !important; padding: 0.6rem 1.2rem; border-radius: 50px; }
+        /* Desktop Nav: Hidden on Mobile */
+        .desktop-nav { display: flex; gap: 2rem; align-items: center; }
+        .desktop-nav a { color: #cbd5e1; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        .desktop-nav a:hover { color: white; }
+        
+        /* Mobile Menu Button */
+        .menu-btn { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* --- Vertical Announcement Notice --- */
-        .sale-notice {
-            position: fixed;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--glance-accent);
-            color: #000;
-            padding: 1.5rem 0.5rem;
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            font-weight: 800;
-            font-size: 0.8rem;
-            border-radius: 0 10px 10px 0;
-            z-index: 999;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-            letter-spacing: 1px;
+        /* Slide-out Mobile Menu */
+        .mobile-overlay {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
+            background: var(--brand-dark); z-index: 2000;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; padding: 2rem;
+        }
+        .mobile-overlay.active { right: 0; }
+        .mobile-overlay a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700; margin: 1rem 0; padding-bottom: 0.5rem; border-bottom: 1px solid #312e81; }
+        .close-menu { align-self: flex-end; color: white; font-size: 2rem; margin-bottom: 2rem; cursor: pointer; }
+
+        /* --- VERTICAL NOTICE --- */
+        .sale-sidebar {
+            position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+            background: var(--accent); color: #000; padding: 1.2rem 0.4rem;
+            writing-mode: vertical-rl; font-weight: 800; font-size: 0.75rem;
+            border-radius: 0 12px 12px 0; z-index: 999; box-shadow: 4px 0 15px rgba(0,0,0,0.1);
         }
 
-        /* --- Ticker & Search Section --- */
-        .top-offset { margin-top: 75px; }
-        .ticker-wrap { background: #312e81; color: white; padding: 12px 0; overflow: hidden; border-bottom: 3px solid var(--glance-accent); }
-        .ticker { display: flex; animation: slide 25s linear infinite; white-space: nowrap; }
-        .ticker span { margin-right: 5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-        @keyframes slide { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        /* --- Search & Hero --- */
-        .search-hero { padding: 4rem 5%; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: white; text-align: center; }
-        .search-hero h1 { font-size: 3rem; margin-bottom: 2rem; }
-        .main-search-box {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
+        /* --- HERO & SEARCH --- */
+        .hero { margin-top: 60px; padding: 6rem 5% 4rem; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: white; text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.1; }
+        .search-wrapper { max-width: 700px; margin: 2rem auto 0; position: relative; }
+        .search-wrapper input { 
+            width: 100%; padding: 1.2rem 1.5rem 1.2rem 3.5rem; border-radius: 100px; 
+            border: none; font-size: 1.1rem; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
-        .main-search-box input {
-            width: 100%;
-            padding: 1.5rem 2rem 1.5rem 3.5rem;
-            border-radius: 100px;
-            border: none;
-            font-size: 1.2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .main-search-box i { position: absolute; left: 25px; top: 50%; transform: translateY(-50%); color: #6366f1; font-size: 1.5rem; }
+        .search-wrapper i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--brand); font-size: 1.2rem; }
 
-        /* --- Grid & Forum Style --- */
-        .content-area { max-width: 1200px; margin: 3rem auto; padding: 0 20px; }
-        .forum-card { background: white; border-radius: 20px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 4rem; }
-        .row-item { 
-            display: grid; 
-            grid-template-columns: 2.5fr 1fr 1fr 1.5fr; 
-            padding: 1.5rem; 
-            border-bottom: 1px solid #f1f5f9; 
-            align-items: center;
-        }
-        .row-item:hover { background: #f8faff; }
-        .domain-main { display: flex; align-items: center; gap: 1rem; }
-        .domain-main img { width: 60px; height: 60px; border-radius: 12px; }
-        .domain-name-text { font-size: 1.3rem; font-weight: 800; color: var(--glance-header); }
-        .price-text { font-size: 1.2rem; font-weight: 700; color: #059669; }
+        /* --- TICKER --- */
+        .ticker-bar { background: var(--accent); color: #000; padding: 8px 0; overflow: hidden; white-space: nowrap; font-weight: 700; font-size: 0.8rem; }
+        .ticker-content { display: inline-block; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .btn-group { display: flex; gap: 0.5rem; }
-        .action-btn { padding: 0.6rem 1rem; border-radius: 8px; text-decoration: none; font-size: 0.8rem; font-weight: 700; transition: 0.2s; }
-        .wa-btn { background: #22c55e; color: white; }
-        .mail-btn { background: #6366f1; color: white; }
-        .action-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+        /* --- TABLE LAYOUT --- */
+        .main-container { max-width: 1200px; margin: 4rem auto; padding: 0 20px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+        .data-table { background: white; border-radius: 20px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.02); }
+        
+        .row { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1.5fr; padding: 1.2rem 2rem; border-bottom: 1px solid #f1f5f9; align-items: center; transition: 0.2s; }
+        .row:hover { background: #f8faff; }
+        .domain-cell { display: flex; align-items: center; gap: 1rem; }
+        .domain-cell img { width: 55px; height: 55px; border-radius: 12px; object-fit: cover; border: 1px solid #eee; }
+        .domain-name { font-weight: 800; font-size: 1.2rem; color: var(--brand-dark); text-decoration: none; }
+        .price-cell { font-weight: 800; color: var(--success); font-size: 1.1rem; }
 
-        /* --- Special Sections --- */
-        .quote-box { text-align: center; padding: 4rem 2rem; background: #f1f5f9; border-radius: 30px; margin: 4rem 0; font-style: italic; }
-        .bundle-banner { background: var(--glance-accent); padding: 3rem; border-radius: 20px; text-align: center; color: #000; margin-bottom: 4rem; }
+        .btn-flex { display: flex; gap: 8px; }
+        .btn { padding: 8px 14px; border-radius: 8px; text-decoration: none; font-size: 0.8rem; font-weight: 700; color: white; display: flex; align-items: center; gap: 5px; }
+        .btn-wa { background: #22c55e; }
+        .btn-mail { background: var(--brand); }
 
-        /* --- FAQ --- */
-        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
-        .faq-item { background: white; padding: 2rem; border-radius: 15px; border-left: 5px solid var(--glance-brand); }
+        /* --- ONE WORD GRID --- */
+        .word-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0 5rem; }
+        .word-card { background: white; padding: 2rem; border-radius: 24px; border: 1px solid #e2e8f0; position: relative; transition: 0.3s; }
+        .word-card:hover { border-color: var(--brand); transform: translateY(-5px); }
+        .word-card .premium-tag { position: absolute; top: 15px; right: 15px; font-size: 0.6rem; background: #fee2e2; color: #ef4444; padding: 3px 8px; border-radius: 50px; font-weight: 800; }
 
-        /* --- Footer --- */
-        footer { background: var(--glance-footer); color: #cbd5e1; padding: 5rem 5% 2rem; }
-        .footer-cta { background: #1e293b; padding: 3rem; border-radius: 20px; text-align: center; margin-bottom: 4rem; border: 1px solid #334155; }
-        .footer-cta h2 { color: white; margin-bottom: 1rem; }
+        /* --- COMMUNITY & FAQ --- */
+        .whatsapp-community { background: #e8f5e9; padding: 3rem; border-radius: 24px; text-align: center; margin-bottom: 4rem; border: 2px dashed #22c55e; }
+        .faq-section { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 5rem; }
+        .faq-card { background: #fff; padding: 2rem; border-radius: 16px; border: 1px solid #e2e8f0; }
 
-        @media (max-width: 768px) {
-            .row-item { grid-template-columns: 1fr; gap: 1rem; }
-            .nav-links { display: none; }
-            .sale-notice { display: none; }
+        /* --- FOOTER --- */
+        footer { background: var(--brand-dark); color: #94a3b8; padding: 4rem 5% 2rem; border-top: 5px solid var(--brand); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
+        .footer-cta { background: var(--brand); color: white; padding: 0.8rem 1.5rem; border-radius: 10px; text-decoration: none; font-weight: 700; display: inline-block; margin-top: 1rem; }
+
+        @media (max-width: 992px) {
+            .desktop-nav { display: none; }
+            .menu-btn { display: block; }
+            .row { grid-template-columns: 1.5fr 1fr; gap: 1rem; }
+            .hide-tablet { display: none; }
+            .faq-section { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="sale-notice">GLANCINGLY.COM FOR SALE - SERIOUS OFFERS ONLY</div>
+    <div class="sale-sidebar">GLANCINGLY.COM — INVESTOR INQUIRIES OPEN</div>
 
     <header>
         <a href="#" class="logo">Glancingly<span>.com</span></a>
-        <div class="nav-links">
-            <a href="mailto:sales@elijul.com?subject=Sell my domain through Glancingly">Sell Domains</a>
-            <a href="#faq">How it works</a>
-            <a href="https://wa.me/250788660513" class="cta-btn-head">Negotiate Now</a>
-        </div>
-        <div onclick="toggleMenu()" style="color: white; cursor: pointer;"><i class="fa fa-bars fa-lg"></i></div>
+        
+        <nav class="desktop-nav">
+            <a href="#featured">Featured</a>
+            <a href="#oneword">One-Word Assets</a>
+            <a href="#community">Community</a>
+            <a href="mailto:sales@elijul.com" class="cta-btn-head" style="background:var(--accent); color:#000; padding: 0.5rem 1rem; border-radius: 8px;">Sell Your Domain</a>
+        </nav>
+
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars-staggered"></i></div>
     </header>
 
-    <div class="top-offset">
-        <div class="ticker-wrap">
-            <div class="ticker">
-                <span><i class="fa fa-star"></i> DEBENTUREAI.COM: THE FUTURE OF FINTECH AI</span>
-                <span><i class="fa fa-shield"></i> LITEESCROW.COM: SECURE INSTANT PAYMENTS</span>
-                <span><i class="fa fa-globe"></i> GLOEX.ORG: GLOBAL EXCHANGE NETWORK</span>
-                <span><i class="fa fa-fire"></i> GENTEELISM.COM: PREMIUM DICTIONARY ASSET</span>
-            </div>
+    <div class="mobile-overlay" id="mobileMenu">
+        <div class="close-menu" onclick="toggleMenu()">&times;</div>
+        <a href="#featured" onclick="toggleMenu()">Featured Portfolio</a>
+        <a href="#oneword" onclick="toggleMenu()">One-Word Assets</a>
+        <a href="#community" onclick="toggleMenu()">WhatsApp Group</a>
+        <a href="mailto:sales@elijul.com" onclick="toggleMenu()">Contact Agent</a>
+        <a href="https://wa.me/250788660513" style="background: var(--success); color: white; text-align: center; border: none; border-radius: 12px; margin-top: 2rem;">Negotiate BIN</a>
+    </div>
+
+    <div class="ticker-bar">
+        <div class="ticker-content">
+            <span>💎 LIQUID ASSET ALERT: DEBENTUREAI.COM</span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>🚀 NEW LISTING: LITEESCROW.COM</span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>📈 PORTFOLIO BUNDLE DISCOUNTS AVAILABLE (15% OFF)</span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>🌍 GLOBAL BRANDING: GLOEX.ORG</span> &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 
-    <section class="search-hero">
-        <h1>Premium Domains at a Glance.</h1>
-        <p style="margin-bottom: 2rem; opacity: 0.9;">Secure the foundation of your digital brand today.</p>
-        <div class="main-search-box">
+    <section class="hero">
+        <h1>Premium Digital Assets <br>At A <span style="color:var(--accent)">Glance.</span></h1>
+        <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">Vetted, brandable, and category-defining domain names for institutional investors and high-growth startups.</p>
+        
+        <div class="search-wrapper">
             <i class="fa fa-search"></i>
-            <input type="text" id="domainSearch" placeholder="Search by name or industry (e.g. AI, Fintech)..." onkeyup="searchList()">
+            <input type="text" id="domainSearch" placeholder="Search by niche, keyword, or extension..." onkeyup="filterDomains()">
         </div>
     </section>
 
-    <main class="content-area">
-        
-        <div class="bundle-banner">
-            <h2>📦 Bulk Investor Discount</h2>
-            <p>Purchase 2 or more domains and get up to <strong>20% off</strong>. Contact us for bundle pricing.</p>
+    <main class="main-container">
+
+        <div class="section-header" id="featured">
+            <h2 style="font-weight: 800;"><i class="fa fa-star" style="color:var(--accent)"></i> Featured Inventory</h2>
+            <span style="font-size: 0.8rem; color: #64748b;">3 High-Value Items</span>
         </div>
 
-        <div class="forum-card" id="domainContainer">
-            <div class="row-item" data-search="debentureai ai fintech finance investment">
-                <div class="domain-main">
+        <div class="data-table" id="domainList">
+            <div class="row" data-search="debentureai ai fintech banking">
+                <div class="domain-cell">
                     <img src="IMG-20260128-WA0005.jpg" alt="Logo">
                     <div>
-                        <div class="domain-name-text">DebentureAI.com</div>
-                        <span style="font-size: 0.7rem; background:#e0e7ff; padding: 2px 8px; border-radius: 4px;">FINTECH / AI</span>
+                        <a href="#" class="domain-name">DebentureAI.com</a>
+                        <div style="font-size: 0.7rem; color: #64748b;">Fintech • Artificial Intelligence</div>
                     </div>
                 </div>
-                <div class="price-text">$3,750</div>
-                <div style="font-size: 0.8rem; color: #64748b;">Instant Push Available</div>
-                <div class="btn-group">
-                    <a href="https://wa.me/250788660513?text=I'm%20interested%20in%20DebentureAI.com" class="action-btn wa-btn"><i class="fab fa-whatsapp"></i> Chat</a>
-                    <a href="mailto:sales@elijul.com?subject=Offer: DebentureAI.com" class="action-btn mail-btn"><i class="fa fa-envelope"></i> Offer</a>
+                <div class="price-cell">$3,750</div>
+                <div class="hide-tablet" style="font-size: 0.8rem; color: #94a3b8;">Estibot: $2,400+</div>
+                <div class="btn-flex">
+                    <a href="https://wa.me/250788660513?text=Offer%20for%20DebentureAI.com" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
+                    <a href="mailto:sales@elijul.com?subject=Inquiry: DebentureAI.com" class="btn btn-mail"><i class="fa fa-envelope"></i></a>
                 </div>
             </div>
 
-            <div class="row-item" data-search="liteescrow escrow payments secure fintech">
-                <div class="domain-main">
+            <div class="row" data-search="liteescrow payment secure finance">
+                <div class="domain-cell">
                     <img src="IMG-20260128-WA0006.jpg" alt="Logo">
                     <div>
-                        <div class="domain-name-text">LiteEscrow.com</div>
-                        <span style="font-size: 0.7rem; background:#e0e7ff; padding: 2px 8px; border-radius: 4px;">SECURE PAYMENTS</span>
+                        <a href="#" class="domain-name">LiteEscrow.com</a>
+                        <div style="font-size: 0.7rem; color: #64748b;">Security • Payments</div>
                     </div>
                 </div>
-                <div class="price-text">$3,250</div>
-                <div style="font-size: 0.8rem; color: #64748b;">Verified Brandable</div>
-                <div class="btn-group">
-                    <a href="https://wa.me/250788660513?text=I'm%20interested%20in%20LiteEscrow.com" class="action-btn wa-btn"><i class="fab fa-whatsapp"></i> Chat</a>
-                    <a href="mailto:sales@elijul.com?subject=Offer: LiteEscrow.com" class="action-btn mail-btn"><i class="fa fa-envelope"></i> Offer</a>
+                <div class="price-cell">$3,250</div>
+                <div class="hide-tablet" style="font-size: 0.8rem; color: #94a3b8;">Brandable Tier 1</div>
+                <div class="btn-flex">
+                    <a href="https://wa.me/250788660513?text=Offer%20for%20LiteEscrow.com" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
+                    <a href="mailto:sales@elijul.com?subject=Inquiry: LiteEscrow.com" class="btn btn-mail"><i class="fa fa-envelope"></i></a>
                 </div>
             </div>
 
-            <div class="row-item" data-search="gloex global exchange experience">
-                <div class="domain-main">
+            <div class="row" data-search="gloex global exchange">
+                <div class="domain-cell">
                     <img src="IMG-20260131-WA0007.jpg" alt="Logo">
                     <div>
-                        <div class="domain-name-text">GloEx.org</div>
-                        <span style="font-size: 0.7rem; background:#e0e7ff; padding: 2px 8px; border-radius: 4px;">GLOBAL NETWORK</span>
+                        <a href="#" class="domain-name">GloEx.org</a>
+                        <div style="font-size: 0.7rem; color: #64748b;">Exchange • Global</div>
                     </div>
                 </div>
-                <div class="price-text">$2,450</div>
-                <div style="font-size: 0.8rem; color: #64748b;">Short 5-Letter</div>
-                <div class="btn-group">
-                    <a href="https://wa.me/250788660513?text=I'm%20interested%20in%20GloEx.org" class="action-btn wa-btn"><i class="fab fa-whatsapp"></i> Chat</a>
-                    <a href="mailto:sales@elijul.com?subject=Offer: GloEx.org" class="action-btn mail-btn"><i class="fa fa-envelope"></i> Offer</a>
+                <div class="price-cell">$2,450</div>
+                <div class="hide-tablet" style="font-size: 0.8rem; color: #94a3b8;">Rare 5-Letter</div>
+                <div class="btn-flex">
+                    <a href="https://wa.me/250788660513?text=Offer%20for%20GloEx.org" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
+                    <a href="mailto:sales@elijul.com?subject=Inquiry: GloEx.org" class="btn btn-mail"><i class="fa fa-envelope"></i></a>
                 </div>
             </div>
         </div>
 
-        <div class="quote-box">
-            <h3>"A domain name is the only piece of digital real estate that you truly own. Choose wisely."</h3>
+        <h2 style="font-weight: 800; margin: 5rem 0 2rem;" id="oneword"><i class="fa fa-feather" style="color:var(--brand)"></i> Dictionary Assets</h2>
+        <div class="word-grid">
+            <div class="word-card">
+                <div class="premium-tag">ULTRA-RARE</div>
+                <h3 style="font-size: 1.5rem; color: var(--brand);">Glancingly.com</h3>
+                <p style="font-size: 0.8rem; margin: 1rem 0;">High-liquidity adverb domain. Ideal for media or tech brands.</p>
+                <div class="price-cell" style="margin-bottom: 1.5rem;">Suggested: $12,500</div>
+                <a href="mailto:sales@elijul.com?subject=Inquiry: Glancingly.com" class="btn btn-mail" style="display:inline-flex;">Submit Offer</a>
+            </div>
+            <div class="word-card">
+                <h3 style="font-size: 1.5rem; color: var(--brand);">Genteelism.com</h3>
+                <p style="font-size: 0.8rem; margin: 1rem 0;">Elegant one-word English. Perfect for luxury or lifestyle.</p>
+                <div class="price-cell" style="margin-bottom: 1.5rem;">Suggested: $4,950</div>
+                <a href="mailto:sales@elijul.com?subject=Inquiry: Genteelism.com" class="btn btn-mail" style="display:inline-flex;">Submit Offer</a>
+            </div>
+            <div class="word-card">
+                <h3 style="font-size: 1.5rem; color: var(--brand);">Inheritability.com</h3>
+                <p style="font-size: 0.8rem; margin: 1rem 0;">Powerful legal/fintech term. Great for estate tech.</p>
+                <div class="price-cell" style="margin-bottom: 1.5rem;">Suggested: $3,800</div>
+                <a href="mailto:sales@elijul.com?subject=Inquiry: Inheritability.com" class="btn btn-mail" style="display:inline-flex;">Submit Offer</a>
+            </div>
         </div>
 
-        <h2 id="faq" style="text-align: center; margin-bottom: 2rem;">Common Questions</h2>
-        <div class="faq-grid">
-            <div class="faq-item">
-                <h4><i class="fa fa-credit-card"></i> How do I pay?</h4>
-                <p>We accept secure payments via Escrow.com, direct bank transfer, or major crypto. WhatsApp us to discuss your preferred method.</p>
+        <div class="whatsapp-community" id="community">
+            <i class="fab fa-whatsapp" style="font-size: 3rem; color: #22c55e; margin-bottom: 1rem;"></i>
+            <h2 style="color: #1b5e20;">Join Our Marketplace Group</h2>
+            <p style="max-width: 500px; margin: 1rem auto; color: #2e7d32;">Get instant alerts on new domain drops, bundle deals, and private auctions before they hit the public market.</p>
+            <a href="https://chat.whatsapp.com/EInlfUPDUCVJgtXCcTGLbQ?mode=gi_t" target="_blank" class="btn btn-wa" style="display:inline-flex; padding: 1rem 2rem; border-radius: 50px; font-size: 1.1rem;">Join WhatsApp Community</a>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 3rem;">Investor FAQ</h2>
+        <div class="faq-section">
+            <div class="faq-card">
+                <h4 style="margin-bottom: 1rem;"><i class="fa fa-shield-halved"></i> Secure Transfer Process</h4>
+                <p style="font-size: 0.9rem; color: #64748b;">We utilize Namecheap Internal Push for instant delivery. For larger transactions, we support Escrow.com to ensure 100% buyer protection.</p>
             </div>
-            <div class="faq-item">
-                <h4><i class="fa fa-truck-fast"></i> How fast is the transfer?</h4>
-                <p>We provide instant Namecheap account-to-account pushes. For other registrars, we provide the Auth code within 24 hours.</p>
-            </div>
-            <div class="faq-item">
-                <h4><i class="fa fa-comments"></i> Is price negotiable?</h4>
-                <p>Yes. While we have "Buy It Now" (BIN) prices, we welcome serious offers via WhatsApp or Email.</p>
+            <div class="faq-card">
+                <h4 style="margin-bottom: 1rem;"><i class="fa fa-handshake"></i> Negotiation & Bundling</h4>
+                <p style="font-size: 0.9rem; color: #64748b;">We are open to reasonable offers. Significant discounts (up to 20%) are available for bulk acquisitions of 3 or more assets.</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <div class="footer-cta">
-            <h2>Don't see what you're looking for?</h2>
-            <p style="margin-bottom: 2rem;">We have an unlisted inventory of 500+ premium assets.</p>
-            <a href="mailto:sales@elijul.com" class="cta-btn-head" style="text-decoration: none;">Inquire About Inventory</a>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+        <div class="footer-grid">
             <div>
-                <h3 style="color: white; margin-bottom: 1rem;">Glancingly.com</h3>
-                <p>One-Word Dictionary Domains & High-End Brandable Assets.</p>
+                <h2 style="color: white; margin-bottom: 1rem;">Glancingly<span>.com</span></h2>
+                <p>Curating the world's most brandable domains. A division of Elijul Groups Ltd.</p>
             </div>
             <div>
-                <h4 style="color: white;">Contact Details</h4>
-                <p>WhatsApp: +250 788 660 513</p>
+                <h4 style="color: white; margin-bottom: 1rem;">Contact Agent</h4>
                 <p>Email: sales@elijul.com</p>
+                <p>WhatsApp: +250 788 660 513</p>
             </div>
             <div>
-                <h4 style="color: white;">Legal</h4>
-                <p>A subsidiary of Elijul Groups Ltd.</p>
-                <p>&copy; 2026 All Rights Reserved.</p>
+                <h4 style="color: white; margin-bottom: 1rem;">Newsletter</h4>
+                <p>Subscribe for bi-weekly domain insights.</p>
+                <a href="mailto:sales@elijul.com" class="footer-cta">Get Portfolio PDF</a>
             </div>
+        </div>
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #1e293b; text-align: center; font-size: 0.8rem;">
+            &copy; 2026 Glancingly. All transfers secured.
         </div>
     </footer>
 
     <script>
-        function searchList() {
-            let input = document.getElementById('domainSearch').value.toLowerCase();
-            let items = document.querySelectorAll('.row-item');
-            items.forEach(item => {
-                let searchData = item.getAttribute('data-search');
-                item.style.display = searchData.includes(input) ? 'grid' : 'none';
-            });
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
         }
 
-        function toggleMenu() {
-            alert("Glancingly Navigation:\n- Portfolio\n- Contact Sales\n- Domain Brokerage");
+        function filterDomains() {
+            const input = document.getElementById('domainSearch').value.toLowerCase();
+            const rows = document.querySelectorAll('.row');
+            rows.forEach(row => {
+                const text = row.getAttribute('data-search');
+                row.style.display = text.includes(input) ? 'grid' : 'none';
+            });
         }
     </script>
 </body>
