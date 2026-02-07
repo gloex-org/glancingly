@@ -1,237 +1,233 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glancingly Domains Marketplace</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glancingly | Premium Domain Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #38bdf8;
+            --glass: rgba(255, 255, 255, 0.95);
+        }
 
-    body {
-      background: #f5f7fa;
-      color: #222;
-      overflow-x: hidden;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #f1f5f9; color: var(--dark); overflow-x: hidden; }
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-      position: relative;
-    }
+        /* --- Header & Navigation --- */
+        header {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      animation: fadeDown 1s ease;
-    }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+        .logo span { color: var(--dark); }
 
-    header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
-      opacity: 0.9;
-      animation: fadeUp 1.2s ease;
-    }
+        .nav-search { display: flex; align-items: center; gap: 1rem; flex: 1; justify-content: center; }
+        #domainSearch {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            border: 1px solid #ddd;
+            width: 300px;
+            transition: 0.3s;
+        }
 
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .menu-toggle { cursor: pointer; font-size: 1.5rem; }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        /* --- Motion Banner --- */
+        .motion-banner {
+            background: var(--dark);
+            color: white;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+        .ticker span { margin-right: 50px; font-weight: 500; font-size: 0.9rem; opacity: 0.8; }
 
-    /* MOTION BANNER */
-    .scroll-banner {
-      width: 100%;
-      background: #1e40af;
-      color: #fff;
-      padding: 12px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
 
-    .scroll-banner span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 18s linear infinite;
-    }
+        /* --- Hero Section --- */
+        .hero { padding: 4rem 5%; text-align: center; background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%); }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { color: #64748b; max-width: 600px; margin: 0 auto 2rem; }
 
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
+        /* --- Domain Grid --- */
+        .container { padding: 4rem 5%; }
+        .domain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
 
-    /* NAV / SEARCH */
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 25px;
-      background: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+        .domain-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #1e40af;
-    }
+        .domain-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
 
-    .search-box input {
-      padding: 10px 15px;
-      width: 280px;
-      border: 2px solid #d1d5db;
-      border-radius: 10px;
-      outline: none;
-      transition: 0.3s;
-    }
+        .domain-logo { height: 80px; margin-bottom: 1.5rem; }
+        .domain-logo img { height: 100%; border-radius: 10px; object-fit: contain; }
 
-    .search-box input:focus {
-      border-color: #2563eb;
-    }
+        .domain-card h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 10px; }
+        .price { font-size: 1.25rem; font-weight: 700; color: #059669; margin: 15px 0; }
 
-    /* DOMAIN GRID */
-    .container {
-      max-width: 1300px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        .cta-btn {
+            display: block;
+            text-align: center;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .cta-btn:hover { background: #1d4ed8; }
 
-    .domains {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      margin-top: 20px;
-    }
+        /* --- Footer --- */
+        footer { background: var(--dark); color: white; padding: 4rem 5% 2rem; margin-top: 4rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+        .footer-bottom { border-top: 1px solid #334155; margin-top: 3rem; padding-top: 2rem; text-align: center; font-size: 0.9rem; color: #94a3b8; }
 
-    .domain-card {
-      background: #fff;
-      padding: 25px 20px;
-      border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      transition: 0.3s;
-      animation: fadeUp 0.6s ease;
-    }
+        /* Utility */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
 
-    .domain-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    }
+    <header>
+        <div class="logo">Glancingly<span>.com</span></div>
+        
+        <div class="nav-search">
+            <input type="text" id="domainSearch" placeholder="Search domains (e.g. AI, Fintech)..." onkeyup="filterDomains()">
+        </div>
 
-    .domain-logo img {
-      width: 240px;
-      height: 240px;
-      object-fit: contain;
-      border-radius: 15px;
-      margin-bottom: 15px;
-    }
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </header>
 
-    .price {
-      color: #10b981;
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 10px 0;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      padding: 10px 15px;
-      background: #2563eb;
-      color: #fff;
-      border-radius: 8px;
-      margin-top: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .cta-btn:hover {
-      background: #1e3a8a;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #0f172a;
-      color: #fff;
-      text-align: center;
-      padding: 25px;
-      margin-top: 50px;
-    }
-
-  </style>  <script>
-    function searchDomains() {
-      let input = document.getElementById("searchInput").value.toLowerCase();
-      let cards = document.getElementsByClassName("domain-card");
-
-      for (let i = 0; i < cards.length; i++) {
-        let title = cards[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
-        cards[i].style.display = title.includes(input) ? "block" : "none";
-      }
-    }
-  </script></head><body>  <header>
-    <h1>Glancingly Premium Domains</h1>
-    <p>Premium domains available individually or as a bundle.</p>
-    <p>One-word English premium domains currently available:</p>
-    <p><strong>Glancingly.com • Genteelism.com • Genteelisms.com • Inheritability.com</strong></p>
-  </header>  <div class="scroll-banner">
-    <span>🔥 DebentureAI.com • LiteEscrow.com • GloEx.org — Premium Brandable Domains for Sale • Secure Transfer • Fast Support 🔥</span>
-  </div>  <div class="nav">
-    <div class="logo">Glancingly</div>
-    <div class="search-box">
-      <input id="searchInput" type="text" placeholder="Search domains..." onkeyup="searchDomains()" />
+    <div class="motion-banner">
+        <div class="ticker">
+            <span>🚀 NEW: DebentureAI.com available now</span>
+            <span>💎 Premium Finance Domains</span>
+            <span>⚡ Instant Namecheap Push</span>
+            <span>🌍 Global Brand Assets</span>
+            <span>📈 Low BIN Prices</span>
+        </div>
     </div>
-  </div>  <div class="container">
-    <div class="domains"><!-- DebentureAI -->
-  <div class="domain-card">
-    <div class="domain-logo">
-      <img src="IMG-20260128-WA0005.jpg" alt="DebentureAI.com Logo" />
+
+    <section class="hero">
+        <h1>Premium Domains Portfolio</h1>
+        <p>Hand-picked, one-word, and industry-leading digital real estate for your next big venture.</p>
+        <div class="extra-domains" style="font-weight: 600; color: var(--primary);">
+            Glancingly.com • Genteelism.com • Genteelisms.com • Inheritability.com
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="domain-grid" id="domainGrid">
+            
+            <div class="domain-card" data-name="debentureai.com ai fintech investment">
+                <div class="domain-logo">
+                    <img src="IMG-20260128-WA0005.jpg" alt="DebentureAI Logo">
+                </div>
+                <h2>DebentureAI.com</h2>
+                <p>Sleek, professional domain ideal for AI-driven fintech or investment platforms.</p>
+                <p class="price">BIN: $3,750</p>
+                <a href="https://wa.me/250788660513" target="_blank" class="cta-btn">Make Offer via WhatsApp</a>
+            </div>
+
+            <div class="domain-card" data-name="liteescrow.com fintech escrow payments">
+                <div class="domain-logo">
+                    <img src="IMG-20260128-WA0006.jpg" alt="LiteEscrow Logo">
+                </div>
+                <h2>LiteEscrow.com</h2>
+                <p>Perfect for fintech, secure escrow services, or online transaction tools.</p>
+                <p class="price">BIN: $3,250</p>
+                <a href="https://wa.me/250788660513" target="_blank" class="cta-btn">Make Offer via WhatsApp</a>
+            </div>
+
+            <div class="domain-card" data-name="gloex.org global exchange forum">
+                <div class="domain-logo">
+                    <img src="IMG-20260131-WA0007.jpg" alt="GloEx Logo">
+                </div>
+                <h2>GloEx.org</h2>
+                <p>Global exchange programs, forums, or networking platforms. Brandable and short.</p>
+                <p class="price">BIN: $2,450</p>
+                <a href="https://wa.me/250788660513" target="_blank" class="cta-btn">Make Offer via WhatsApp</a>
+            </div>
+
+        </div>
     </div>
-    <h2>DebentureAI.com</h2>
-    <p>Sleek domain ideal for AI, fintech, or investment platforms.</p>
-    <p class="price">BIN: $3750</p>
-    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
-  </div>
 
-  <!-- LiteEscrow -->
-  <div class="domain-card">
-    <div class="domain-logo">
-      <img src="IMG-20260128-WA0006.jpg" alt="LiteEscrow.com Logo" />
-    </div>
-    <h2>LiteEscrow.com</h2>
-    <p>Perfect for fintech, escrow services, or secure online transactions.</p>
-    <p class="price">BIN: $3250</p>
-    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
-  </div>
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>Glancingly</h3>
+                <p style="color: #94a3b8; margin-top: 1rem;">Premium domain acquisition and brand consulting.</p>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <p>sales@elijul.com</p>
+                <p>+250 788 660 513</p>
+            </div>
+            <div>
+                <h4>Secure Transfer</h4>
+                <p>Fast Namecheap Push</p>
+                <p>Escrow Available</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Glancingly (Part of Elijul Groups Ltd). All rights reserved.
+        </div>
+    </footer>
 
-  <!-- GloEx -->
-  <div class="domain-card">
-    <div class="domain-logo">
-      <img src="IMG-20260131-WA0007.jpg" alt="GloEx.org Logo" />
-    </div>
-    <h2>GloEx.org</h2>
-    <p>Great for global exchange programs, forums, networking platforms.</p>
-    <p class="price">BIN: $2450</p>
-    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
-  </div>
+    <script>
+        function filterDomains() {
+            let input = document.getElementById('domainSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('domain-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].classList.remove('hidden');
+                } else {
+                    cards[i].classList.add('hidden');
+                }
+            }
+        }
 
-</div>
-
-  </div>  <footer>
-    © 2026 Glancingly Marketplace. All rights reserved.
-  </footer></body>
-      </html>
+        function toggleMenu() {
+            alert("Menu options: Portfolio, Categories, Contact. \n(Logic ready for your custom links!)");
+        }
+    </script>
+</body>
+  </html>
