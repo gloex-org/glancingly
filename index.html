@@ -2,132 +2,236 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glancingly — Premium Domains Marketplace</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <style>
-    * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-    body {background:#f6f8fc;color:#222;}/* HEADER */
-header {position:sticky;top:0;z-index:20;background:#ffffffd9;backdrop-filter:blur(10px);padding:15px 25px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e5e7eb;}
-.logo {font-size:1.7rem;font-weight:700;color:#1e40af;letter-spacing:-1px;}
+  <title>Glancingly Domains Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-/* MENU */
-.menu-toggle {font-size:1.8rem;cursor:pointer;display:none;}
-nav ul {display:flex;gap:25px;list-style:none;}
-nav a {text-decoration:none;font-weight:500;color:#1e40af;transition:0.3s;}
-nav a:hover {color:#3b82f6;}
+    body {
+      background: #f5f7fa;
+      color: #222;
+      overflow-x: hidden;
+    }
 
-/* HERO */
-.hero {padding:90px 20px;text-align:center;background:linear-gradient(135deg,#1e40af,#3b82f6);color:white;}
-.hero h1 {font-size:3rem;font-weight:700;margin-bottom:10px;}
-.hero p {font-size:1.2rem;color:#dbeafe;}
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+    }
 
-/* SEARCH */
-.search-box {margin:40px auto;max-width:600px;display:flex;gap:10px;}
-.search-box input {flex:1;padding:14px;border-radius:10px;border:1px solid #cbd5e1;font-size:1rem;}
-.search-box button {padding:14px 22px;background:#1e40af;border:none;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;}
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      animation: fadeDown 1s ease;
+    }
 
-/* CATEGORY TABLE */
-.section-title {text-align:center;font-size:2rem;font-weight:700;margin:50px 0 20px;color:#1e40af;}
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      opacity: 0.9;
+      animation: fadeUp 1.2s ease;
+    }
 
-.domain-table {width:90%;max-width:1000px;margin:0 auto 50px;background:white;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.07);overflow:hidden;animation:floatTable 6s ease-in-out infinite;}    
-@keyframes floatTable {0%{transform:translateY(0);}50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-table {width:100%;border-collapse:collapse;}
-th,td {padding:18px;text-align:left;border-bottom:1px solid #e5e7eb;}
-th {background:#f1f5f9;font-weight:700;color:#1e40af;}
-td a {color:#1e3a8a;font-weight:600;text-decoration:none;}
-td a:hover {color:#3b82f6;}
-.bin {color:#0d9488;font-weight:700;}
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* FOOTER */
-footer {background:#1e40af;color:white;text-align:center;padding:20px;margin-top:60px;}
+    /* MOTION BANNER */
+    .scroll-banner {
+      width: 100%;
+      background: #1e40af;
+      color: #fff;
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
 
-@media(max-width:700px){
-  nav ul{display:none;}
-  .menu-toggle{display:block;}
-}
+    .scroll-banner span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 18s linear infinite;
+    }
 
-  </style>
-</head>
-<body><header>
-  <div class="logo">Glancingly</div>
-  <div class="menu-toggle">☰</div>
-  <nav>
-    <ul>
-      <li><a href="#top">Home</a></li>
-      <li><a href="#domains">Domains</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header><section class="hero">
-  <h1>Premium Domains at a Glance</h1>
-  <p>Browse top‑tier brandable domains — curated, modern, and ready for transfer.</p>
-</section><div class="search-box">
-  <input type="text" placeholder="Search domain..." />
-  <button>Search</button>
-</div><h2 class="section-title">Top Domain Listings</h2><div class="domain-table" id="domains">
-  <table>
-    <tr>
-      <th>Domain</th>
-      <th>Description</th>
-      <th>BIN Price</th>
-      <th>Action</th>
-    </tr><tr>
-  <td><a href="https://debentureai.com" target="_blank">DebentureAI.com</a></td>
-  <td>Premium AI / fintech investment brand.</td>
-  <td class="bin">$3750</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
 
-<tr>
-  <td><a href="https://liteescrow.com" target="_blank">LiteEscrow.com</a></td>
-  <td>Fintech & secure escrow brand.</td>
-  <td class="bin">$3250</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    /* NAV / SEARCH */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-<tr>
-  <td><a href="https://gloex.org" target="_blank">GloEx.org</a></td>
-  <td>Global exchange / networking platform.</td>
-  <td class="bin">$2450</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e40af;
+    }
 
-<tr>
-  <td>MotorPayments.com</td>
-  <td>Automotive payments, fintech, logistics.</td>
-  <td class="bin">$2800</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    .search-box input {
+      padding: 10px 15px;
+      width: 280px;
+      border: 2px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      transition: 0.3s;
+    }
 
-<tr>
-  <td>GendersAI.com</td>
-  <td>AI identity, social analytics, research.</td>
-  <td class="bin">$2200</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    .search-box input:focus {
+      border-color: #2563eb;
+    }
 
-<tr>
-  <td>RadiographAI.com</td>
-  <td>Medical imaging AI diagnostics brand.</td>
-  <td class="bin">$3000</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    /* DOMAIN GRID */
+    .container {
+      max-width: 1300px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
 
-<tr>
-  <td>EntranceHall.com</td>
-  <td>Showroom, real estate, marketplace entry.</td>
-  <td class="bin">$2600</td>
-  <td><a href="https://wa.me/250788660513" target="_blank">Chat</a></td>
-</tr>
+    .domains {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
 
-  </table>
-</div><section id="contact" style="text-align:center;margin:60px auto;">
-  <h2 class="section-title">Contact to Buy</h2>
-  <p>Email: <a href="mailto:sales@glancingly.com">sales@glancingly.com</a></p>
-  <p>WhatsApp: <a href="https://wa.me/250788660513" target="_blank">+250 788 660 513</a></p>
-  <p>Secure Namecheap push transfer • Fast responses • Buy individually or as a bundle</p>
-</section><footer>
-  © 2026 Glancingly. All Rights Reserved.
-</footer></body>
-</html>
+    .domain-card {
+      background: #fff;
+      padding: 25px 20px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: 0.3s;
+      animation: fadeUp 0.6s ease;
+    }
+
+    .domain-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .domain-logo img {
+      width: 240px;
+      height: 240px;
+      object-fit: contain;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      color: #10b981;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 10px 0;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #2563eb;
+      color: #fff;
+      border-radius: 8px;
+      margin-top: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #1e3a8a;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #0f172a;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
+    }
+
+  </style>  <script>
+    function searchDomains() {
+      let input = document.getElementById("searchInput").value.toLowerCase();
+      let cards = document.getElementsByClassName("domain-card");
+
+      for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
+        cards[i].style.display = title.includes(input) ? "block" : "none";
+      }
+    }
+  </script></head><body>  <header>
+    <h1>Glancingly Premium Domains</h1>
+    <p>Premium domains available individually or as a bundle.</p>
+    <p>One-word English premium domains currently available:</p>
+    <p><strong>Glancingly.com • Genteelism.com • Genteelisms.com • Inheritability.com</strong></p>
+  </header>  <div class="scroll-banner">
+    <span>🔥 DebentureAI.com • LiteEscrow.com • GloEx.org — Premium Brandable Domains for Sale • Secure Transfer • Fast Support 🔥</span>
+  </div>  <div class="nav">
+    <div class="logo">Glancingly</div>
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="Search domains..." onkeyup="searchDomains()" />
+    </div>
+  </div>  <div class="container">
+    <div class="domains"><!-- DebentureAI -->
+  <div class="domain-card">
+    <div class="domain-logo">
+      <img src="IMG-20260128-WA0005.jpg" alt="DebentureAI.com Logo" />
+    </div>
+    <h2>DebentureAI.com</h2>
+    <p>Sleek domain ideal for AI, fintech, or investment platforms.</p>
+    <p class="price">BIN: $3750</p>
+    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
+  </div>
+
+  <!-- LiteEscrow -->
+  <div class="domain-card">
+    <div class="domain-logo">
+      <img src="IMG-20260128-WA0006.jpg" alt="LiteEscrow.com Logo" />
+    </div>
+    <h2>LiteEscrow.com</h2>
+    <p>Perfect for fintech, escrow services, or secure online transactions.</p>
+    <p class="price">BIN: $3250</p>
+    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
+  </div>
+
+  <!-- GloEx -->
+  <div class="domain-card">
+    <div class="domain-logo">
+      <img src="IMG-20260131-WA0007.jpg" alt="GloEx.org Logo" />
+    </div>
+    <h2>GloEx.org</h2>
+    <p>Great for global exchange programs, forums, networking platforms.</p>
+    <p class="price">BIN: $2450</p>
+    <a href="https://wa.me/250788660513" class="cta-btn">💬 WhatsApp Chat</a>
+  </div>
+
+</div>
+
+  </div>  <footer>
+    © 2026 Glancingly Marketplace. All rights reserved.
+  </footer></body>
+      </html>
