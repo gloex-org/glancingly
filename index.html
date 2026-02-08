@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glancingly.com | Premium Domain Market</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        .glass-header { background: rgba(30, 27, 75, 0.95); backdrop-filter: blur(10px); }
+        .ticker-anim { animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #4f46e5; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <script>
+        // REPLACE THIS WITH YOUR PYTHONANYWHERE URL
+        const API_BASE = "https://yourusername.pythonanywhere.com/api"; 
+    </script>
+
+    <header class="fixed top-0 w-full glass-header text-white z-50 shadow-lg h-[70px] flex items-center justify-between px-6">
+        <a href="#" class="text-2xl font-extrabold tracking-tight">Glancingly<span class="text-yellow-400">.com</span></a>
+        <button onclick="openModal()" class="bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-2 px-4 rounded-lg text-sm transition">
+            + List Your Domain
+        </button>
+    </header>
+
+    <div class="fixed top-[70px] w-full bg-yellow-400 z-40 py-2 overflow-hidden whitespace-nowrap border-b border-yellow-500">
+        <div class="ticker-anim inline-block font-bold text-sm text-black" id="ticker-content">
+            Loading market data...
+        </div>
+    </div>
+
+    <section class="mt-[130px] pt-20 pb-12 px-4 text-center bg-gradient-to-br from-indigo-950 to-indigo-800 text-white">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Assets At A <span class="text-yellow-400">Glance.</span></h1>
+        <p class="text-indigo-200 max-w-xl mx-auto mb-8">Curated, vetted, and brandable domains for investors and startups.</p>
+        
+        <div class="relative max-w-2xl mx-auto">
+            <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500"></i>
+            <input type="text" id="searchInput" placeholder="Search keywords (e.g. AI, Crypto, One-Word)..." 
+                class="w-full pl-12 pr-4 py-4 rounded-full text-slate-900 focus:outline-none shadow-2xl"
+                onkeyup="renderDomains()">
+        </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-4 mt-8 flex gap-2 overflow-x-auto pb-4 justify-center" id="filter-container">
+        <button onclick="filterCategory('all')" class="filter-btn active bg-indigo-600 text-white px-4 py-2 rounded-full font-bold text-sm">All</button>
+        <button onclick="filterCategory('featured')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-4 py-2 rounded-full font-bold text-sm hover:bg-indigo-50">Featured</button>
+        <button onclick="filterCategory('oneword')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-4 py-2 rounded-full font-bold text-sm hover:bg-indigo-50">Dictionary</button>
+        <button onclick="filterCategory('hot')" class="filter-btn bg-white text-slate-600 border border-slate-200 px-4 py-2 rounded-full font-bold text-sm hover:bg-indigo-50">Hot Deals</button>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 min-h-[400px]">
+        <div id="loader" class="flex justify-center mt-12"><div class="loader"></div></div>
+        
+        <div id="domain-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            </div>
+        
+        <div id="no-results" class="hidden text-center py-12 text-slate-400">
+            <i class="fa fa-folder-open text-4xl mb-3"></i>
+            <p>No assets found matching your criteria.</p>
+        </div>
+    </main>
+
+    <div id="submitModal" class="fixed inset-0 bg-black/80 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-indigo-900">Submit Domain for Listing</h3>
+                <button onclick="closeModal()" class="text-2xl text-slate-400 hover:text-red-500">&times;</button>
+            </div>
+            
+            <form id="listingForm" onsubmit="submitDomain(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase">Domain Name</label>
+                    <input type="text" name="domain_name" required class="w-full border p-2 rounded-lg" placeholder="example.com">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Asking Price ($)</label>
+                        <input type="number" name="price" required class="w-full border p-2 rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">BIN Price ($)</label>
+                        <input type="number" name="bin_price" class="w-full border p-2 rounded-lg">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase">Pitch / Description</label>
+                    <textarea name="description" required class="w-full border p-2 rounded-lg h-24" placeholder="Why is this valuable?"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">WhatsApp (No +)</label>
+                        <input type="text" name="whatsapp_number" class="w-full border p-2 rounded-lg" placeholder="250788...">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase">Email</label>
+                        <input type="email" name="contact_email" required class="w-full border p-2 rounded-lg">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Submit for Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let allDomains = [];
+        let currentCategory = 'all';
+
+        // 1. Fetch Data on Load
+        async function fetchDomains() {
+            try {
+                const response = await fetch(`${API_BASE}/domains/`);
+                if (!response.ok) throw new Error("API Error");
+                allDomains = await response.json();
+                
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('domain-grid').classList.remove('hidden');
+                
+                updateTicker();
+                renderDomains();
+            } catch (error) {
+                document.getElementById('loader').innerHTML = `<p class="text-red-500">Failed to load market data. Ensure backend is running.</p>`;
+            }
+        }
+
+        // 2. Render Cards
+        function renderDomains() {
+            const grid = document.getElementById('domain-grid');
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filter logic
+            const filtered = allDomains.filter(d => {
+                const matchesSearch = d.domain_name.toLowerCase().includes(search) || 
+                                      d.description.toLowerCase().includes(search);
+                const matchesCat = currentCategory === 'all' || d.category === currentCategory;
+                return matchesSearch && matchesCat;
+            });
+
+            grid.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                document.getElementById('no-results').classList.remove('hidden');
+                return;
+            } else {
+                document.getElementById('no-results').classList.add('hidden');
+            }
+
+            filtered.forEach(d => {
+                // Determine WhatsApp Link
+                const waLink = d.whatsapp_number 
+                    ? `https://wa.me/${d.whatsapp_number}?text=I am interested in ${d.domain_name}`
+                    : '#';
+                
+                // Determine Mail Link
+                const mailLink = `mailto:${d.contact_email}?subject=Offer for ${d.domain_name}`;
+
+                // Image Handling (Fallback if no logo)
+                const imgUrl = d.logo ? d.logo : `https://ui-avatars.com/api/?name=${d.domain_name}&background=random&size=128`;
+
+                const card = `
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 overflow-hidden flex flex-col">
+                    <div class="p-6 flex items-start justify-between border-b border-slate-50">
+                        <div class="flex items-center gap-4">
+                            <img src="${imgUrl}" class="w-12 h-12 rounded-lg object-cover bg-slate-100">
+                            <div>
+                                <h3 class="font-extrabold text-lg text-indigo-900">${d.domain_name}</h3>
+                                <span class="text-xs font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 uppercase">${d.category}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-extrabold text-emerald-600">$${Number(d.price).toLocaleString()}</div>
+                            ${d.estibot_val ? `<div class="text-xs text-slate-400">Est: ${d.estibot_val}</div>` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 flex-grow">
+                        <p class="text-sm text-slate-600 leading-relaxed">${d.description}</p>
+                        ${d.bin_price ? `<div class="mt-4 text-xs font-bold text-slate-500">BIN: $${Number(d.bin_price).toLocaleString()}</div>` : ''}
+                    </div>
+
+                    <div class="p-4 bg-slate-50 flex gap-2">
+                        <a href="${waLink}" target="_blank" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white text-center py-2 rounded-lg font-bold text-sm transition"><i class="fab fa-whatsapp"></i> Chat</a>
+                        <a href="${mailLink}" class="w-12 bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center rounded-lg transition"><i class="fa fa-envelope"></i></a>
+                        ${d.checkout_url ? `<a href="${d.checkout_url}" target="_blank" class="flex-1 bg-slate-900 text-white text-center py-2 rounded-lg font-bold text-sm">Buy Now</a>` : ''}
+                    </div>
+                </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // 3. Ticker Logic
+        function updateTicker() {
+            const ticker = document.getElementById('ticker-content');
+            let content = '';
+            // Get 5 random deals
+            const deals = allDomains.slice(0, 5);
+            deals.forEach(d => {
+                content += `<span class="mx-6">💎 ${d.domain_name} ($${d.price})</span>`;
+            });
+            ticker.innerHTML = content + content; // Duplicate for smooth loop
+        }
+
+        // 4. Form Submission
+        async function submitDomain(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "Submitting...";
+            btn.disabled = true;
+
+            const formData = new FormData(form);
+            // Convert FormData to JSON
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch(`${API_BASE}/submit/`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    alert("Success! Your domain is pending admin approval.");
+                    closeModal();
+                    form.reset();
+                } else {
+                    alert("Error submitting. Please check fields.");
+                }
+            } catch (err) {
+                alert("Network error.");
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // 5. Utility
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'text-white');
+                b.classList.add('bg-white', 'text-slate-600');
+            });
+            event.target.classList.remove('bg-white', 'text-slate-600');
+            event.target.classList.add('bg-indigo-600', 'text-white');
+            renderDomains();
+        }
+
+        function openModal() { document.getElementById('submitModal').classList.remove('hidden'); }
+        function closeModal() { document.getElementById('submitModal').classList.add('hidden'); }
+
+        // Init
+        fetchDomains();
+    </script>
+</body>
+  </html>
